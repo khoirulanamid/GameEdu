@@ -25,8 +25,6 @@
 | 3 | Dinda Puspita Ayu | 2455202087 | Anggota |
 | 4 | Yayah Tri Marpuah | 2455202077 | Anggota |
 
-> Catatan: nama dan NIM anggota 2–4 diisi oleh kelompok sebelum pengumpulan.
-
 ---
 
 ## 1. Pendahuluan
@@ -77,6 +75,17 @@ tersebut dipakai sebagai isi contoh pada template.
 - Kelas dan Siswa — mengelola kelas dan daftar siswa.
 - Laporan — melihat hasil permainan dan jawaban siswa.
 
+### Tampilan Web Guru (Milestone 1)
+
+![Dashboard Guru](docs/screenshots/dashboard.png)
+*Dashboard Guru — ringkasan bank soal, mode permainan, soal terbaru, dan sebaran soal.*
+
+![Bank Soal](docs/screenshots/bank-soal.png)
+*Bank Soal — daftar soal semua mata pelajaran dengan cari, filter mapel/kelas/tingkat, edit, dan hapus dengan konfirmasi.*
+
+![Tambah Soal](docs/screenshots/tambah-soal.png)
+*Tambah Soal — identitas soal (mapel, bab, kelas, materi, tingkat, level Bloom, durasi) dan isi soal dengan jawaban benar.*
+
 ---
 
 ## 3. Keputusan Teknologi
@@ -94,8 +103,9 @@ tersebut dipakai sebagai isi contoh pada template.
 **Aturan pemisah yang dipegang kelompok:**
 
 - Frontend tidak mengakses database secara langsung dan tidak mengimpor
-  dari `backend/`. Frontend hanya memanggil API, misalnya
-  `http://localhost:3001/api/soal`.
+  dari `backend/`. Pada Milestone 1 frontend memakai localStorage dan
+  belum memanggil API; saat API soal siap, frontend memanggilnya,
+  misalnya `http://localhost:3001/api/soal`.
 - Backend tidak mengimpor komponen React. Backend hanya memakai tipe
   dari `packages/types/`.
 - SQL tidak ditulis di route, controller, atau service. Semua SQL berada
@@ -109,7 +119,8 @@ tersebut dipakai sebagai isi contoh pada template.
 GameEdu/
 ├── package.json                 # workspaces: frontend/* + backend + packages/*
 ├── docker-compose.yml           # database MySQL + phpMyAdmin lokal (pengembangan saja)
-├── docs/                        # logo.png, logo-icon.png, panduan-anggota*.md, screenshot
+├── docs/                        # logo.png, logo-icon.png, panduan-anggota*.md,
+│                                # agent.md, demo-rehearsal.md, screenshots/
 ├── .gitignore  .nvmrc (Node 20)
 ├── frontend/                    # SEMUA frontend (React + Vite)
 │   ├── web/                     # Dashboard Guru — FOKUS Milestone 1
@@ -117,7 +128,7 @@ GameEdu/
 │   │   └── src/
 │   │       ├── main.tsx         # titik masuk aplikasi web
 │   │       ├── App.tsx          # routing aplikasi web
-│   │       ├── components/      # Layout, Sidebar, dan komponen tampilan
+│   │       ├── components/      # Layout, Sidebar, TambahSoal, ConfirmDialog, Toast
 │   │       ├── pages/           # Dashboard, SoalList, SoalForm, dan halaman lain
 │   │       ├── data/            # data contoh soal
 │   │       └── lib/             # penyimpanan soal (localStorage pada Milestone 1)
@@ -128,12 +139,13 @@ GameEdu/
 │   └── src/
 │       ├── index.ts             # menjalankan server (port 3001)
 │       ├── app.ts               # aplikasi Express dan pendaftaran route
-│       ├── routes/              # health.routes, soal.routes
-│       ├── controllers/         # pengendali permintaan API
-│       ├── services/            # logika dan validasi
-│       ├── repositories/        # satu-satunya lapisan yang berisi SQL
+│       ├── routes/              # kosong — kerangka Milestone 2
+│       ├── controllers/         # kosong — kerangka Milestone 2
+│       ├── services/            # kosong — kerangka Milestone 2
+│       ├── repositories/        # satu-satunya lapisan yang berisi SQL;
+│       │                        # soal.repository.ts masih kosong
 │       ├── config/              # env dan koneksi database (mysql2 Pool)
-│       ├── middlewares/         # penanganan error
+│       ├── middlewares/         # kosong — kerangka Milestone 2
 │       └── scripts/             # migrate dan seed
 ├── sql/                         # SQL SAJA (raw SQL, MySQL)
 │   ├── migrations/              # 001_create_soal.sql, 002_create_kelas_siswa.sql,
@@ -141,8 +153,8 @@ GameEdu/
 │   ├── seeds/                   # 001_seed_soal.sql (3 soal contoh)
 │   └── schema.sql               # ringkasan skema untuk dibaca
 └── packages/
-    ├── types/                   # tipe bersama: Soal, Kelas, Siswa, SesiGame
-    │                            # dipakai frontend DAN backend
+    ├── types/                   # tipe bersama: Soal (+ TingkatKesulitan,
+    │                            # KunciJawaban, LevelBloom); dipakai frontend DAN backend
     └── ui/                      # komponen bersama: Button, Card, Badge
 ```
 
@@ -156,7 +168,7 @@ kosong tersebut. File itu dihapus saat folder sudah berisi file sungguhan.
 | No | Peran | Anggota | Tugas |
 |----|-------|---------|-------|
 | 1 | Repository dan Integrasi | Khoirul Anam | Membuat repository publik, mengundang collaborator, menggabungkan Pull Request, menguji alur guru dan backend, merapikan repository, mengumpulkan link di Classroom |
-| 2 | Frontend Web Guru — Dashboard dan Soal | Daryanto | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel dan hapus); memastikan 3 soal contoh tampil |
+| 2 | Frontend Web Guru — Dashboard dan Soal | Daryanto | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel, filter mapel/kelas/tingkat, edit, hapus dengan konfirmasi); memastikan 8 soal contoh tampil |
 | 3 | Frontend Web Guru — Tambah Soal dan Data | Dinda Puspita Ayu | Formulir Tambah Soal (pertanyaan, 4 pilihan, jawaban benar, mapel, bab, kelas, materi, tingkat, level Bloom, durasi, pembahasan), validasi, penyimpanan localStorage, dan tipe Soal |
 | 4 | Backend, SQL, Smartboard, dan Mobile | Yayah Tri Marpuah | Backend (health dan soal, repository, migrate/seed), SQL (migrasi 001–003 dan seed), kerangka Smartboard dan Mobile, serta komponen `packages/ui/` |
 
@@ -206,7 +218,8 @@ diperiksa satu anggota lain sebelum digabungkan ke `main`.
 Menggabungkan semua branch ke `main`, lalu menguji alur guru dari awal
 sampai akhir: membuka Dashboard, melihat soal contoh, menambah soal
 baru, memeriksa soal tersebut muncul di Daftar Soal, memuat ulang
-browser, dan menghapus satu soal. Backend diperiksa melalui
+browser, mengedit satu soal, dan menghapus satu soal (dengan
+konfirmasi). Backend diperiksa melalui
 `GET /api/health` yang harus menjawab `{"status":"ok"}`.
 
 **Hasil akhir:** alur guru dan backend kerangka berjalan tanpa error.
@@ -271,14 +284,14 @@ npm run build:backend
 
 ## 9. Checklist Milestone 1
 
-- [ ] Kelompok 4 orang sudah terbentuk.
-- [ ] Repository `GameEdu` berstatus Public dan keempat anggota menjadi collaborator.
-- [ ] `npm install` dan `npm run dev:web` berjalan di laptop masing-masing anggota.
-- [ ] Dashboard Guru tampil (soal, sesi, kelas, siswa, laporan).
-- [ ] Tambah Soal dapat menyimpan dan muncul di Daftar Soal.
-- [ ] `npm run build:web` dan `npm run build:backend` berhasil.
-- [ ] `GET /api/health` menjawab `{"status":"ok"}`.
-- [ ] README lengkap dan `node_modules/`, `dist/`, `backend/.env` tidak ter-push.
+- [x] Kelompok 4 orang sudah terbentuk.
+- [x] Repository `GameEdu` berstatus Public dan keempat anggota menjadi collaborator.
+- [x] `npm install` dan `npm run dev:web` berjalan di laptop masing-masing anggota.
+- [x] Dashboard Guru tampil (soal, sesi, kelas, siswa, laporan).
+- [x] Tambah Soal dapat menyimpan dan muncul di Daftar Soal.
+- [x] `npm run build:web` dan `npm run build:backend` berhasil.
+- [x] `GET /api/health` menjawab `{"status":"ok"}`.
+- [x] README lengkap dan `node_modules/`, `dist/`, `backend/.env` tidak ter-push.
 - [ ] Link repository sudah dikumpulkan di Google Classroom.
 
 ---
