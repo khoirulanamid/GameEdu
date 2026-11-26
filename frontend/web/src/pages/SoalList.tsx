@@ -23,19 +23,40 @@ export default function SoalList({
 }: SoalListProps) {
   const [kataKunci, setKataKunci] = useState('');
   const [filterTingkat, setFilterTingkat] = useState<FilterLevel>('Semua');
+  const [filterMapel, setFilterMapel] = useState('Semua');
+  const [filterKelas, setFilterKelas] = useState('Semua');
+
+  const daftarMapel = useMemo(
+    () => [...new Set(daftarSoal.map((soal) => soal.mapel))].sort(),
+    [daftarSoal],
+  );
+  const daftarKelas = useMemo(
+    () => [...new Set(daftarSoal.map((soal) => soal.kelas))].sort(),
+    [daftarSoal],
+  );
 
   const soalTersaring = useMemo(() => {
     const query = kataKunci.trim().toLowerCase();
     return daftarSoal.filter((soal) => {
       const cocokTingkat =
         filterTingkat === 'Semua' || soal.tingkat === filterTingkat;
+      const cocokMapel = filterMapel === 'Semua' || soal.mapel === filterMapel;
+      const cocokKelas = filterKelas === 'Semua' || soal.kelas === filterKelas;
       const cocokCari =
         !query ||
         soal.pertanyaan.toLowerCase().includes(query) ||
+        soal.mapel.toLowerCase().includes(query) ||
         soal.materi.toLowerCase().includes(query);
-      return cocokTingkat && cocokCari;
+      return cocokTingkat && cocokMapel && cocokKelas && cocokCari;
     });
-  }, [daftarSoal, kataKunci, filterTingkat]);
+  }, [daftarSoal, kataKunci, filterTingkat, filterMapel, filterKelas]);
+
+  const resetSemuaFilter = () => {
+    setKataKunci('');
+    setFilterTingkat('Semua');
+    setFilterMapel('Semua');
+    setFilterKelas('Semua');
+  };
 
   const levels: FilterLevel[] = ['Semua', 'Mudah', 'Sedang', 'Sulit'];
 
@@ -45,7 +66,7 @@ export default function SoalList({
         <div>
           <h1 className="page-title">Bank Soal</h1>
           <p className="page-subtitle">
-            Daftar soal Matematika — Materi Bangun Datar untuk kuis dan game kelas.
+            Daftar soal semua mata pelajaran untuk kuis dan game kelas.
           </p>
         </div>
 
@@ -63,11 +84,39 @@ export default function SoalList({
         <input
           type="search"
           className="search-input"
-          placeholder="Cari pertanyaan atau materi bangun datar..."
+          placeholder="Cari pertanyaan, mapel, atau materi..."
           value={kataKunci}
           onChange={(e) => setKataKunci(e.target.value)}
           aria-label="Cari soal"
         />
+
+        <select
+          className="filter-select"
+          value={filterMapel}
+          onChange={(e) => setFilterMapel(e.target.value)}
+          aria-label="Filter mapel"
+        >
+          <option value="Semua">Semua mapel</option>
+          {daftarMapel.map((mapel) => (
+            <option key={mapel} value={mapel}>
+              {mapel}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className="filter-select"
+          value={filterKelas}
+          onChange={(e) => setFilterKelas(e.target.value)}
+          aria-label="Filter kelas"
+        >
+          <option value="Semua">Semua kelas</option>
+          {daftarKelas.map((kelas) => (
+            <option key={kelas} value={kelas}>
+              Kelas {kelas}
+            </option>
+          ))}
+        </select>
 
         <div className="filter-pills" role="group" aria-label="Filter tingkat kesulitan">
           {levels.map((level) => (
@@ -104,10 +153,7 @@ export default function SoalList({
               <button
                 type="button"
                 className="btn-secondary"
-                onClick={() => {
-                  setKataKunci('');
-                  setFilterTingkat('Semua');
-                }}
+                onClick={resetSemuaFilter}
               >
                 Reset Filter
               </button>
@@ -147,6 +193,16 @@ export default function SoalList({
                           </div>
                         ))}
                       </div>
+                      <div className="soal-meta">
+                        {soal.mapel}
+                        {soal.bab ? ` · ${soal.bab}` : ''} · Kelas{' '}
+                        {soal.kelas} · Bloom {soal.levelBloom}
+                      </div>
+                      {soal.pembahasan && (
+                        <div className="soal-pembahasan">
+                          Pembahasan: {soal.pembahasan}
+                        </div>
+                      )}
                     </td>
                     <td>
                       <span className="badge badge-materi">{soal.materi}</span>

@@ -227,7 +227,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
                           {soal.pertanyaan}
                         </div>
                         <div className="latest-soal-meta">
-                          {soal.materi} · Kunci {soal.kunciJawaban} · {soal.tingkat}
+                          {soal.mapel} · {soal.materi} · Kelas {soal.kelas} · Kunci {soal.kunciJawaban}
                         </div>
                       </div>
                     </div>

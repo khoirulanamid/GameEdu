@@ -1,1 +1,1 @@
-export type { Soal, TingkatKesulitan, KunciJawaban } from "./soal.js";
+export type { Soal, TingkatKesulitan, KunciJawaban, LevelBloom } from "./soal.js";

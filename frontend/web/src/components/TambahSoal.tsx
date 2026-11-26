@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import type { Soal, KunciJawaban, TingkatKesulitan } from "@gameedu/types";
+import type {
+  Soal,
+  KunciJawaban,
+  TingkatKesulitan,
+  LevelBloom,
+} from "@gameedu/types";
 
 interface TambahSoalProps {
   onSimpan?: (soal: Soal) => void;
@@ -8,13 +13,29 @@ interface TambahSoalProps {
 
 const HURUF_OPSI: KunciJawaban[] = ["A", "B", "C", "D"];
 
+const DAFTAR_KELAS = ["VII", "VIII", "IX"];
+
+const LEVEL_BLOOM: { kode: LevelBloom; label: string }[] = [
+  { kode: "C1", label: "C1 · Mengingat" },
+  { kode: "C2", label: "C2 · Memahami" },
+  { kode: "C3", label: "C3 · Menerapkan" },
+  { kode: "C4", label: "C4 · Menganalisis" },
+  { kode: "C5", label: "C5 · Mengevaluasi" },
+  { kode: "C6", label: "C6 · Mencipta" },
+];
+
 export default function TambahSoal({ onSimpan }: TambahSoalProps) {
   const [pertanyaan, setPertanyaan] = useState("");
   const [pilihan, setPilihan] = useState(["", "", "", ""]);
   const [jawabanBenar, setJawabanBenar] = useState<KunciJawaban | "">("");
-  const [kategori, setKategori] = useState("");
+  const [mapel, setMapel] = useState("");
+  const [bab, setBab] = useState("");
   const [materi, setMateri] = useState("");
+  const [kelas, setKelas] = useState("VII");
   const [tingkat, setTingkat] = useState<TingkatKesulitan>("Mudah");
+  const [levelBloom, setLevelBloom] = useState<LevelBloom>("C3");
+  const [durasi, setDurasi] = useState("30");
+  const [pembahasan, setPembahasan] = useState("");
   const [error, setError] = useState("");
 
   const handlePilihan = (index: number, value: string) => {
@@ -34,10 +55,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
       !jawabanBenar ||
       indeksBenar < 0 ||
       !pilihan[indeksBenar].trim() ||
-      !kategori.trim() ||
+      !mapel.trim() ||
       !materi.trim()
     ) {
-      setError("Semua kolom harus diisi dan jawaban benar harus dipilih!");
+      setError("Mapel, materi, pertanyaan, keempat pilihan, dan jawaban benar harus diisi!");
       return;
     }
 
@@ -46,10 +67,14 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
       pertanyaan,
       pilihan: { A: pilihan[0], B: pilihan[1], C: pilihan[2], D: pilihan[3] },
       kunciJawaban: jawabanBenar,
-      kategori,
+      mapel,
+      bab: bab.trim() || undefined,
       materi,
+      kelas,
       tingkat,
-      durasiDetik: 30,
+      levelBloom,
+      durasiDetik: Math.max(5, Number(durasi) || 30),
+      pembahasan: pembahasan.trim() || undefined,
     };
 
     onSimpan?.(soalBaru);
@@ -58,9 +83,14 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     setPertanyaan("");
     setPilihan(["", "", "", ""]);
     setJawabanBenar("");
-    setKategori("");
+    setMapel("");
+    setBab("");
     setMateri("");
+    setKelas("VII");
     setTingkat("Mudah");
+    setLevelBloom("C3");
+    setDurasi("30");
+    setPembahasan("");
   };
 
   return (
@@ -69,7 +99,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
         <div>
           <h1 className="page-title">Tambah Soal</h1>
           <p className="page-subtitle">
-            Buat soal pilihan ganda baru untuk bank soal Bangun Datar.
+            Buat soal pilihan ganda baru untuk bank soal — semua mata pelajaran.
           </p>
         </div>
         <Link to="/bank-soal" className="btn-secondary">
@@ -81,19 +111,53 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
         <h2 className="form-section-title">Identitas soal</h2>
         <div className="form-grid-3">
           <div className="form-field">
-            <label className="form-label" htmlFor="kategori">
-              Kategori
+            <label className="form-label" htmlFor="mapel">
+              Mapel
             </label>
             <input
-              id="kategori"
+              id="mapel"
               className="form-input"
-              value={kategori}
+              value={mapel}
               onChange={(e) => {
-                setKategori(e.target.value);
+                setMapel(e.target.value);
                 setError("");
               }}
               placeholder="Contoh: Matematika"
             />
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="bab">
+              Bab
+            </label>
+            <input
+              id="bab"
+              className="form-input"
+              value={bab}
+              onChange={(e) => {
+                setBab(e.target.value);
+                setError("");
+              }}
+              placeholder="Contoh: Bab 3 · Bangun Datar"
+            />
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="kelas">
+              Kelas
+            </label>
+            <select
+              id="kelas"
+              className="form-input"
+              value={kelas}
+              onChange={(e) => setKelas(e.target.value)}
+            >
+              {DAFTAR_KELAS.map((k) => (
+                <option key={k} value={k}>
+                  Kelas {k}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-field">
@@ -129,6 +193,39 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
               <option value="Sedang">Sedang</option>
               <option value="Sulit">Sulit</option>
             </select>
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="levelBloom">
+              Level Bloom
+            </label>
+            <select
+              id="levelBloom"
+              className="form-input"
+              value={levelBloom}
+              onChange={(e) => setLevelBloom(e.target.value as LevelBloom)}
+            >
+              {LEVEL_BLOOM.map((level) => (
+                <option key={level.kode} value={level.kode}>
+                  {level.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="durasi">
+              Durasi (detik)
+            </label>
+            <input
+              id="durasi"
+              type="number"
+              min={5}
+              max={300}
+              className="form-input"
+              value={durasi}
+              onChange={(e) => setDurasi(e.target.value)}
+            />
           </div>
         </div>
 
@@ -184,6 +281,19 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
               />
             </label>
           ))}
+        </div>
+
+        <div className="form-field" style={{ marginTop: "14px" }}>
+          <label className="form-label" htmlFor="pembahasan">
+            Pembahasan (opsional)
+          </label>
+          <textarea
+            id="pembahasan"
+            className="form-input form-textarea"
+            value={pembahasan}
+            onChange={(e) => setPembahasan(e.target.value)}
+            placeholder="Penjelasan jawaban benar, tampil setelah jawaban dibuka"
+          />
         </div>
 
         {error && (

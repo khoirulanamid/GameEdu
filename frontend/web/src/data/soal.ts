@@ -1,6 +1,6 @@
 import type { Soal } from '@gameedu/types';
 
-export type { Soal, TingkatKesulitan, KunciJawaban } from '@gameedu/types';
+export type { Soal, TingkatKesulitan, KunciJawaban, LevelBloom } from '@gameedu/types';
 
 export const soalContoh: Soal[] = [
   {
@@ -14,8 +14,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Persegi',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Mudah',
+    levelBloom: 'C2',
     durasiDetik: 20,
   },
   {
@@ -29,8 +32,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'C',
     materi: 'Persegi Panjang',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Mudah',
+    levelBloom: 'C2',
     durasiDetik: 20,
   },
   {
@@ -44,8 +50,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Segitiga',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Mudah',
+    levelBloom: 'C2',
     durasiDetik: 25,
   },
   {
@@ -59,8 +68,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'C',
     materi: 'Persegi Panjang',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Sedang',
+    levelBloom: 'C3',
     durasiDetik: 30,
   },
   {
@@ -74,8 +86,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'A',
     materi: 'Trapesium',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Sedang',
+    levelBloom: 'C3',
     durasiDetik: 25,
   },
   {
@@ -89,8 +104,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Belah Ketupat',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Sedang',
+    levelBloom: 'C3',
     durasiDetik: 35,
   },
   {
@@ -104,8 +122,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Lingkaran',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Sulit',
+    levelBloom: 'C4',
     durasiDetik: 40,
   },
   {
@@ -119,8 +140,11 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Trapesium',
-    kategori: 'Matematika',
+    mapel: 'Matematika',
+    bab: 'Bangun Datar',
+    kelas: 'VII',
     tingkat: 'Sulit',
+    levelBloom: 'C4',
     durasiDetik: 45,
   },
 ];

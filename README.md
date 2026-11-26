@@ -157,7 +157,7 @@ kosong tersebut. File itu dihapus saat folder sudah berisi file sungguhan.
 |----|-------|---------|-------|
 | 1 | Repository dan Integrasi | Khoirul Anam | Membuat repository publik, mengundang collaborator, menggabungkan Pull Request, menguji alur guru dan backend, merapikan repository, mengumpulkan link di Classroom |
 | 2 | Frontend Web Guru — Dashboard dan Soal | Daryanto | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel dan hapus); memastikan 3 soal contoh tampil |
-| 3 | Frontend Web Guru — Tambah Soal dan Data | Dinda Puspita Ayu | Formulir Tambah Soal (pertanyaan, 4 pilihan, jawaban benar, kategori, tingkat), validasi, penyimpanan localStorage, dan tipe Soal |
+| 3 | Frontend Web Guru — Tambah Soal dan Data | Dinda Puspita Ayu | Formulir Tambah Soal (pertanyaan, 4 pilihan, jawaban benar, mapel, bab, kelas, materi, tingkat, level Bloom, durasi, pembahasan), validasi, penyimpanan localStorage, dan tipe Soal |
 | 4 | Backend, SQL, Smartboard, dan Mobile | Yayah Tri Marpuah | Backend (health dan soal, repository, migrate/seed), SQL (migrasi 001–003 dan seed), kerangka Smartboard dan Mobile, serta komponen `packages/ui/` |
 
 Setiap anggota bekerja pada foldernya masing-masing agar tidak terjadi

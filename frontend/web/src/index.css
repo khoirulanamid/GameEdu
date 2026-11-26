@@ -1223,3 +1223,37 @@ button {
   font-weight: 600;
   margin-bottom: 16px;
 }
+
+/* Filter dropdown di toolbar Bank Soal */
+.filter-select {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  border-color: var(--brand-primary);
+}
+
+/* Baris meta di bawah pilihan jawaban (mapel · bab · kelas · Bloom) */
+.soal-meta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.soal-pembahasan {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-top: 8px;
+}
