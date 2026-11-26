@@ -1,0 +1,16 @@
+# Database lokal untuk development. Password di bawah HANYA untuk dev lokal.
+# Jangan pakai password ini di server/produksi.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: gameedu-db
+    environment:
+      POSTGRES_USER: gameedu
+      POSTGRES_PASSWORD: gameedu_dev
+      POSTGRES_DB: gameedu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

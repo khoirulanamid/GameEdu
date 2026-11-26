@@ -1,0 +1,23 @@
+{
+  "name": "gameedu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Platform Game Edukasi Web, Smartboard dan Mobile Terintegrasi \u2014 Pemrograman Web II, Universitas Nurul Huda. Opsi B: frontend/ + backend/ + sql/ terpisah.",
+  "workspaces": [
+    "frontend/*",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace=@gameedu/web",
+    "dev:smartboard": "npm run dev --workspace=@gameedu/smartboard",
+    "dev:mobile": "npm run dev --workspace=@gameedu/mobile",
+    "dev:backend": "npm run dev --workspace=@gameedu/backend",
+    "build": "npm run build --workspaces --if-present",
+    "build:web": "npm run build --workspace=@gameedu/web",
+    "build:backend": "npm run build --workspace=@gameedu/backend",
+    "preview:web": "npm run preview --workspace=@gameedu/web",
+    "db:migrate": "npm run migrate --workspace=@gameedu/backend",
+    "db:seed": "npm run seed --workspace=@gameedu/backend"
+  }
+}
