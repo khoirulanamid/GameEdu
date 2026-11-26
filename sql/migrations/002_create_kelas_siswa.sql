@@ -1,0 +1,18 @@
+
+CREATE TABLE IF NOT EXISTS kelas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_kelas VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS siswa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    kelas_id INT NOT NULL,
+    nama_siswa VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_siswa_kelas
+        FOREIGN KEY (kelas_id)
+        REFERENCES kelas(id)
+        ON DELETE CASCADE
+);
