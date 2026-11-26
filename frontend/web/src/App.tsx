@@ -1,12 +1,36 @@
-import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import Layout from './components/Layout';
 import PlaceholderPage from './components/PlaceholderPage';
+import Toast from './components/Toast';
 import { Soal, soalContoh } from './data/soal';
 import { bacaSoal, hapusSoal } from './lib/storage';
 import Dashboard from './pages/Dashboard';
 import SoalForm from './pages/SoalForm';
 import SoalList from './pages/SoalList';
+
+function ToastHost() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    const pesan = (location.state as { toast?: string } | null)?.toast;
+    if (pesan) {
+      setToast(pesan);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
+  if (!toast) return null;
+  return <Toast message={toast} onClose={() => setToast(null)} />;
+}
 
 export default function App() {
   const [daftarSoal, setDaftarSoal] = useState<Soal[]>(() => [
@@ -29,6 +53,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ToastHost />
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard daftarSoal={daftarSoal} />} />

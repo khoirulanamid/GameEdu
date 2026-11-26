@@ -14,7 +14,7 @@ export default function SoalForm({ onTambah }: SoalFormProps) {
       onSimpan={(soal) => {
         simpanSoal(soal);
         onTambah(soal);
-        navigate('/bank-soal');
+        navigate('/bank-soal', { state: { toast: 'Soal berhasil dibuat!' } });
       }}
     />
   );

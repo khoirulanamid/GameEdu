@@ -15,11 +15,13 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
   const [kategori, setKategori] = useState("");
   const [materi, setMateri] = useState("");
   const [tingkat, setTingkat] = useState<TingkatKesulitan>("Mudah");
+  const [error, setError] = useState("");
 
   const handlePilihan = (index: number, value: string) => {
     setPilihan((prev) =>
       prev.map((item, i) => (i === index ? value : item))
     );
+    setError("");
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +37,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
       !kategori.trim() ||
       !materi.trim()
     ) {
-      alert("Semua kolom harus diisi dan jawaban benar harus dipilih!");
+      setError("Semua kolom harus diisi dan jawaban benar harus dipilih!");
       return;
     }
 
@@ -52,8 +54,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
 
     onSimpan?.(soalBaru);
 
-    alert("Soal berhasil dibuat!");
-
+    setError("");
     setPertanyaan("");
     setPilihan(["", "", "", ""]);
     setJawabanBenar("");
@@ -87,7 +88,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
               id="kategori"
               className="form-input"
               value={kategori}
-              onChange={(e) => setKategori(e.target.value)}
+              onChange={(e) => {
+                setKategori(e.target.value);
+                setError("");
+              }}
               placeholder="Contoh: Matematika"
             />
           </div>
@@ -100,7 +104,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
               id="materi"
               className="form-input"
               value={materi}
-              onChange={(e) => setMateri(e.target.value)}
+              onChange={(e) => {
+                setMateri(e.target.value);
+                setError("");
+              }}
               placeholder="Contoh: Persegi"
             />
           </div>
@@ -113,7 +120,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
               id="tingkat"
               className="form-input"
               value={tingkat}
-              onChange={(e) => setTingkat(e.target.value as TingkatKesulitan)}
+              onChange={(e) => {
+                setTingkat(e.target.value as TingkatKesulitan);
+                setError("");
+              }}
             >
               <option value="Mudah">Mudah</option>
               <option value="Sedang">Sedang</option>
@@ -131,7 +141,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
             id="pertanyaan"
             className="form-input form-textarea"
             value={pertanyaan}
-            onChange={(e) => setPertanyaan(e.target.value)}
+            onChange={(e) => {
+              setPertanyaan(e.target.value);
+              setError("");
+            }}
             placeholder="Masukkan pertanyaan"
           />
         </div>
@@ -154,7 +167,10 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
                 value={HURUF_OPSI[index]}
                 checked={jawabanBenar === HURUF_OPSI[index]}
                 disabled={!item.trim()}
-                onChange={() => setJawabanBenar(HURUF_OPSI[index])}
+                onChange={() => {
+                  setJawabanBenar(HURUF_OPSI[index]);
+                  setError("");
+                }}
                 className="option-radio"
                 aria-label={`Jawaban benar: pilihan ${HURUF_OPSI[index]}`}
               />
@@ -169,6 +185,12 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
             </label>
           ))}
         </div>
+
+        {error && (
+          <p className="form-error" role="alert">
+            {error}
+          </p>
+        )}
 
         <div className="form-actions">
           <Link to="/bank-soal" className="btn-secondary">
