@@ -1,4 +1,6 @@
-<img src="docs/logo.png" width="320" alt="Logo GameEdu — Main sambil mikir">
+<p align="center">
+  <img src="docs/logo.png" width="320" alt="Logo GameEdu — Main sambil mikir">
+</p>
 
 # Final Project — Milestone 1: GameEdu
 ## Platform Game Edukasi Web, Smartboard, dan Mobile Terintegrasi
