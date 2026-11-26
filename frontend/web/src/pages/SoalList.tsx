@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ConfirmDialog from '../components/ConfirmDialog';
+import Toast from '../components/Toast';
 import { Soal, TingkatKesulitan } from '../data/soal';
 
 interface SoalListProps {
@@ -25,6 +27,8 @@ export default function SoalList({
   const [filterTingkat, setFilterTingkat] = useState<FilterLevel>('Semua');
   const [filterMapel, setFilterMapel] = useState('Semua');
   const [filterKelas, setFilterKelas] = useState('Semua');
+  const [soalAkanDihapus, setSoalAkanDihapus] = useState<Soal | null>(null);
+  const [pesanHapus, setPesanHapus] = useState<string | null>(null);
 
   const daftarMapel = useMemo(
     () => [...new Set(daftarSoal.map((soal) => soal.mapel))].sort(),
@@ -229,7 +233,7 @@ export default function SoalList({
                         <button
                           type="button"
                           className="btn-delete"
-                          onClick={() => onHapusSoal(soal.id)}
+                          onClick={() => setSoalAkanDihapus(soal)}
                           aria-label={`Hapus soal nomor ${index + 1}`}
                         >
                           Hapus
@@ -243,6 +247,21 @@ export default function SoalList({
           </div>
         )}
       </section>
+
+      {soalAkanDihapus && (
+        <ConfirmDialog
+          soal={soalAkanDihapus}
+          onBatal={() => setSoalAkanDihapus(null)}
+          onKonfirmasi={() => {
+            onHapusSoal(soalAkanDihapus.id);
+            setSoalAkanDihapus(null);
+            setPesanHapus('Soal berhasil dihapus.');
+          }}
+        />
+      )}
+      {pesanHapus && (
+        <Toast message={pesanHapus} onClose={() => setPesanHapus(null)} />
+      )}
     </div>
   );
 }
