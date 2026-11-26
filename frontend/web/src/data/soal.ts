@@ -1,0 +1,132 @@
+export type TingkatKesulitan = 'Mudah' | 'Sedang' | 'Sulit';
+export type KunciJawaban = 'A' | 'B' | 'C' | 'D';
+
+export interface Soal {
+  id: string;
+  pertanyaan: string;
+  pilihan: {
+    A: string;
+    B: string;
+    C: string;
+    D: string;
+  };
+  kunciJawaban: KunciJawaban;
+  materi: string;
+  tingkatKesulitan: TingkatKesulitan;
+  durasiDetik: number;
+}
+
+export const soalContoh: Soal[] = [
+  {
+    id: 'soal-1',
+    pertanyaan: 'Berapa banyak sisi dan titik sudut yang dimiliki oleh bangun datar persegi?',
+    pilihan: {
+      A: '3 sisi dan 3 titik sudut',
+      B: '4 sisi sama panjang dan 4 titik sudut siku-siku',
+      C: '4 sisi berbeda panjang dan 2 titik sudut',
+      D: '5 sisi dan 5 titik sudut',
+    },
+    kunciJawaban: 'B',
+    materi: 'Persegi',
+    tingkatKesulitan: 'Mudah',
+    durasiDetik: 20,
+  },
+  {
+    id: 'soal-2',
+    pertanyaan: 'Benda di kelas yang permukaannya berbentuk persegi panjang adalah...',
+    pilihan: {
+      A: 'Jam dinding bulat',
+      B: 'Rambu lalu lintas segitiga',
+      C: 'Papan tulis dan daun pintu',
+      D: 'Roda sepeda',
+    },
+    kunciJawaban: 'C',
+    materi: 'Persegi Panjang',
+    tingkatKesulitan: 'Mudah',
+    durasiDetik: 20,
+  },
+  {
+    id: 'soal-3',
+    pertanyaan: 'Sebuah segitiga sama sisi memiliki panjang sisi 12 cm. Berapakah keliling segitiga tersebut?',
+    pilihan: {
+      A: '24 cm',
+      B: '36 cm',
+      C: '48 cm',
+      D: '144 cm',
+    },
+    kunciJawaban: 'B',
+    materi: 'Segitiga',
+    tingkatKesulitan: 'Mudah',
+    durasiDetik: 25,
+  },
+  {
+    id: 'soal-4',
+    pertanyaan: 'Luas sebuah persegi panjang dengan panjang 14 cm dan lebar 8 cm adalah...',
+    pilihan: {
+      A: '44 cm²',
+      B: '84 cm²',
+      C: '112 cm²',
+      D: '128 cm²',
+    },
+    kunciJawaban: 'C',
+    materi: 'Persegi Panjang',
+    tingkatKesulitan: 'Sedang',
+    durasiDetik: 30,
+  },
+  {
+    id: 'soal-5',
+    pertanyaan: 'Bangun datar yang memiliki tepat sepasang sisi sejajar disebut...',
+    pilihan: {
+      A: 'Trapesium',
+      B: 'Persegi',
+      C: 'Belah ketupat',
+      D: 'Lingkaran',
+    },
+    kunciJawaban: 'A',
+    materi: 'Trapesium',
+    tingkatKesulitan: 'Sedang',
+    durasiDetik: 25,
+  },
+  {
+    id: 'soal-6',
+    pertanyaan: 'Sebuah belah ketupat memiliki panjang diagonal masing-masing 16 cm dan 12 cm. Luasnya adalah...',
+    pilihan: {
+      A: '48 cm²',
+      B: '96 cm²',
+      C: '112 cm²',
+      D: '192 cm²',
+    },
+    kunciJawaban: 'B',
+    materi: 'Belah Ketupat',
+    tingkatKesulitan: 'Sedang',
+    durasiDetik: 35,
+  },
+  {
+    id: 'soal-7',
+    pertanyaan: 'Sebuah taman berbentuk lingkaran berjari-jari 7 m (π = 22/7). Berapakah keliling taman tersebut?',
+    pilihan: {
+      A: '22 m',
+      B: '44 m',
+      C: '88 m',
+      D: '154 m',
+    },
+    kunciJawaban: 'B',
+    materi: 'Lingkaran',
+    tingkatKesulitan: 'Sulit',
+    durasiDetik: 40,
+  },
+  {
+    id: 'soal-8',
+    pertanyaan: 'Sebuah trapesium sama kaki memiliki sisi sejajar 10 cm dan 18 cm dengan tinggi 6 cm. Luas trapesium tersebut adalah...',
+    pilihan: {
+      A: '64 cm²',
+      B: '84 cm²',
+      C: '108 cm²',
+      D: '168 cm²',
+    },
+    kunciJawaban: 'B',
+    materi: 'Trapesium',
+    tingkatKesulitan: 'Sulit',
+    durasiDetik: 45,
+  },
+];
