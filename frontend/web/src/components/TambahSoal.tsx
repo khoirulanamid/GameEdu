@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import type { Soal, KunciJawaban, TingkatKesulitan } from "@gameedu/types";
 
 interface TambahSoalProps {
@@ -24,9 +25,17 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!pertanyaan.trim() || pilihan.some((p) => !p.trim()) ||
-        !jawabanBenar || !kategori.trim() || !materi.trim()) {
-      alert("Semua kolom harus diisi!");
+    const indeksBenar = jawabanBenar ? HURUF_OPSI.indexOf(jawabanBenar) : -1;
+    if (
+      !pertanyaan.trim() ||
+      pilihan.some((p) => !p.trim()) ||
+      !jawabanBenar ||
+      indeksBenar < 0 ||
+      !pilihan[indeksBenar].trim() ||
+      !kategori.trim() ||
+      !materi.trim()
+    ) {
+      alert("Semua kolom harus diisi dan jawaban benar harus dipilih!");
       return;
     }
 
@@ -55,67 +64,120 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
 
   return (
     <div>
-      <h2>Tambah Soal</h2>
+      <section className="card page-header-card">
+        <div>
+          <h1 className="page-title">Tambah Soal</h1>
+          <p className="page-subtitle">
+            Buat soal pilihan ganda baru untuk bank soal Bangun Datar.
+          </p>
+        </div>
+        <Link to="/bank-soal" className="btn-secondary">
+          <span>← Kembali ke Bank Soal</span>
+        </Link>
+      </section>
 
-      <form onSubmit={handleSubmit}>
-        <label>Pertanyaan</label>
-        <textarea
-          value={pertanyaan}
-          onChange={(e) => setPertanyaan(e.target.value)}
-          placeholder="Masukkan pertanyaan"
-        />
-
-        <h3>Pilihan Jawaban</h3>
-
-        {pilihan.map((item, index) => (
-          <div key={index}>
-            <label>Pilihan {HURUF_OPSI[index]}</label>
+      <form onSubmit={handleSubmit} className="card form-card">
+        <h2 className="form-section-title">Identitas soal</h2>
+        <div className="form-grid-3">
+          <div className="form-field">
+            <label className="form-label" htmlFor="kategori">
+              Kategori
+            </label>
             <input
-              value={item}
-              onChange={(e) => handlePilihan(index, e.target.value)}
-              placeholder={`Jawaban ${HURUF_OPSI[index]}`}
+              id="kategori"
+              className="form-input"
+              value={kategori}
+              onChange={(e) => setKategori(e.target.value)}
+              placeholder="Contoh: Matematika"
             />
           </div>
-        ))}
 
-        <label>Jawaban Benar</label>
-        <select
-          value={jawabanBenar}
-          onChange={(e) => setJawabanBenar(e.target.value as KunciJawaban | "")}
-        >
-          <option value="">Pilih jawaban benar</option>
-          {HURUF_OPSI.map((huruf, i) => (
-            <option key={huruf} value={huruf} disabled={!pilihan[i].trim()}>
-              {huruf}. {pilihan[i]}
-            </option>
+          <div className="form-field">
+            <label className="form-label" htmlFor="materi">
+              Materi
+            </label>
+            <input
+              id="materi"
+              className="form-input"
+              value={materi}
+              onChange={(e) => setMateri(e.target.value)}
+              placeholder="Contoh: Persegi"
+            />
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="tingkat">
+              Tingkat Kesulitan
+            </label>
+            <select
+              id="tingkat"
+              className="form-input"
+              value={tingkat}
+              onChange={(e) => setTingkat(e.target.value as TingkatKesulitan)}
+            >
+              <option value="Mudah">Mudah</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Sulit">Sulit</option>
+            </select>
+          </div>
+        </div>
+
+        <h2 className="form-section-title">Isi soal</h2>
+        <div className="form-field">
+          <label className="form-label" htmlFor="pertanyaan">
+            Pertanyaan
+          </label>
+          <textarea
+            id="pertanyaan"
+            className="form-input form-textarea"
+            value={pertanyaan}
+            onChange={(e) => setPertanyaan(e.target.value)}
+            placeholder="Masukkan pertanyaan"
+          />
+        </div>
+
+        <span className="form-label">Pilihan jawaban</span>
+        <p className="form-hint">
+          Isi keempat pilihan, lalu pilih lingkaran di samping jawaban yang benar.
+        </p>
+        <div className="option-list">
+          {pilihan.map((item, index) => (
+            <label
+              key={HURUF_OPSI[index]}
+              className={`option-row ${
+                jawabanBenar === HURUF_OPSI[index] ? "is-answer" : ""
+              }`}
+            >
+              <input
+                type="radio"
+                name="jawabanBenar"
+                value={HURUF_OPSI[index]}
+                checked={jawabanBenar === HURUF_OPSI[index]}
+                disabled={!item.trim()}
+                onChange={() => setJawabanBenar(HURUF_OPSI[index])}
+                className="option-radio"
+                aria-label={`Jawaban benar: pilihan ${HURUF_OPSI[index]}`}
+              />
+              <span className="option-letter">{HURUF_OPSI[index]}</span>
+              <input
+                className="option-input"
+                value={item}
+                onChange={(e) => handlePilihan(index, e.target.value)}
+                placeholder={`Jawaban ${HURUF_OPSI[index]}`}
+                aria-label={`Pilihan ${HURUF_OPSI[index]}`}
+              />
+            </label>
           ))}
-        </select>
+        </div>
 
-        <label>Kategori</label>
-        <input
-          value={kategori}
-          onChange={(e) => setKategori(e.target.value)}
-          placeholder="Contoh: Matematika"
-        />
-
-        <label>Materi</label>
-        <input
-          value={materi}
-          onChange={(e) => setMateri(e.target.value)}
-          placeholder="Contoh: Persegi"
-        />
-
-        <label>Tingkat Kesulitan</label>
-        <select
-          value={tingkat}
-          onChange={(e) => setTingkat(e.target.value as TingkatKesulitan)}
-        >
-          <option value="Mudah">Mudah</option>
-          <option value="Sedang">Sedang</option>
-          <option value="Sulit">Sulit</option>
-        </select>
-
-        <button type="submit">Simpan Soal</button>
+        <div className="form-actions">
+          <Link to="/bank-soal" className="btn-secondary">
+            Batal
+          </Link>
+          <button type="submit" className="btn-primary">
+            Simpan Soal
+          </button>
+        </div>
       </form>
     </div>
   );
