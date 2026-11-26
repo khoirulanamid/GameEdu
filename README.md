@@ -1,3 +1,5 @@
+<img src="docs/logo.png" width="320" alt="Logo GameEdu — Main sambil mikir">
+
 # Final Project — Milestone 1: GameEdu
 ## Platform Game Edukasi Web, Smartboard, dan Mobile Terintegrasi
 
@@ -16,13 +18,12 @@
 
 | No | Nama | NIM | Peran |
 |----|------|-----|-------|
-| 1 | Khoirul Anam | 2455202037 | Ketua Kelompok |
+| 1 | Khoirul Anam | 2455202037 | Anggota |
 | 2 | [Isi nama] | [Isi NIM] | Anggota |
 | 3 | [Isi nama] | [Isi NIM] | Anggota |
 | 4 | [Isi nama] | [Isi NIM] | Anggota |
 
 > Catatan: nama dan NIM anggota 2–4 diisi oleh kelompok sebelum pengumpulan.
-> Jika ketua kelompok bukan Khoirul Anam, perbaiki tabel di atas.
 
 ---
 
@@ -42,7 +43,7 @@ milestone berikutnya, bukan tuntutan Milestone 1.
 
 **Tujuan Milestone 1:**
 
-1. Membentuk kelompok beranggotakan 4 mahasiswa dan menentukan ketua.
+1. Membentuk kelompok beranggotakan 4 mahasiswa.
 2. Membuat proyek baru bernama GameEdu dalam satu repository publik.
 3. Menyusun proyek sebagai monorepo agar frontend, backend, dan SQL
    terpisah dan mudah dirawat.
@@ -106,6 +107,7 @@ tersebut dipakai sebagai isi contoh pada template.
 GameEdu/
 ├── package.json                 # workspaces: frontend/* + backend + packages/*
 ├── docker-compose.yml           # database Postgres lokal (pengembangan saja)
+├── docs/                        # logo.png, logo-icon.png, dan screenshot
 ├── .gitignore  .nvmrc (Node 20)
 ├── frontend/                    # SEMUA frontend (React + Vite)
 │   ├── web/                     # Dashboard Guru — FOKUS Milestone 1
@@ -151,7 +153,7 @@ kosong tersebut. File itu dihapus saat folder sudah berisi file sungguhan.
 
 | No | Peran | Anggota | Tugas |
 |----|-------|---------|-------|
-| 1 | Ketua — Repository dan Integrasi | Khoirul Anam | Membuat repository publik, mengundang collaborator, menggabungkan Pull Request, menguji alur guru dan backend, merapikan repository, mengumpulkan link di Classroom |
+| 1 | Repository dan Integrasi | Khoirul Anam | Membuat repository publik, mengundang collaborator, menggabungkan Pull Request, menguji alur guru dan backend, merapikan repository, mengumpulkan link di Classroom |
 | 2 | Frontend Web Guru — Dashboard dan Soal | [Isi nama] | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel dan hapus); memastikan 3 soal contoh tampil |
 | 3 | Frontend Web Guru — Tambah Soal dan Data | [Isi nama] | Formulir Tambah Soal (pertanyaan, 4 pilihan, jawaban benar, kategori, tingkat), validasi, penyimpanan localStorage, dan tipe Soal |
 | 4 | Backend, SQL, Smartboard, dan Mobile | [Isi nama] | Backend (health dan soal, repository, migrate/seed), SQL (migrasi 001–003 dan seed), kerangka Smartboard dan Mobile, serta komponen `packages/ui/` |
@@ -166,15 +168,15 @@ memberi tahu pemiliknya terlebih dahulu di grup kelompok.
 
 ### Tahap 1 — Bentuk kelompok dan sepakati aturan
 
-Membentuk kelompok 4 orang, menentukan ketua, dan menyepakati nama
+Membentuk kelompok 4 orang dan menyepakati nama
 repository `GameEdu`, visibility Public, branch utama `main`, serta
 struktur Opsi B.
 
-**Hasil akhir:** kelompok resmi terbentuk dan ketua ditentukan.
+**Hasil akhir:** kelompok resmi terbentuk.
 
 ### Tahap 2 — Buat repository GitHub
 
-Ketua membuat repository `GameEdu` (Public) dan mengundang 3 anggota
+Salah satu anggota membuat repository `GameEdu` (Public) dan mengundang 3 anggota
 lain sebagai Collaborator. Setiap anggota melakukan `git clone` dan
 memeriksa aksesnya dengan `git pull`.
 
@@ -217,7 +219,7 @@ merupakan hasil yang telah diuji.
 
 ### Tahap 7 — Kumpulkan link di Classroom
 
-Ketua menyalin link repository dan mengumpulkannya pada tugas
+Salah satu anggota menyalin link repository dan mengumpulkannya pada tugas
 Milestone 1 di Google Classroom, lalu memeriksa status tugas sudah
 berubah menjadi sudah diserahkan.
 
@@ -236,7 +238,7 @@ berubah menjadi sudah diserahkan.
    Minimal satu anggota lain memeriksa perubahan itu sebelum digabung.
 5. Tidak ada yang push langsung ke `main` dan tidak ada force push.
 6. Jika terjadi konflik, jangan memaksa. Tunjukkan pesan error-nya
-   kepada ketua dan selesaikan bersama.
+   di grup kelompok dan selesaikan bersama.
 7. Folder `node_modules/` dan `dist/` tidak boleh ikut ter-commit.
 
 ---
@@ -267,7 +269,7 @@ npm run build:backend
 
 ## 9. Checklist Milestone 1
 
-- [ ] Kelompok 4 orang dan ketua sudah ditentukan.
+- [ ] Kelompok 4 orang sudah terbentuk.
 - [ ] Repository `GameEdu` berstatus Public dan keempat anggota menjadi collaborator.
 - [ ] `npm install` dan `npm run dev:web` berjalan di laptop masing-masing anggota.
 - [ ] Dashboard Guru tampil (soal, sesi, kelas, siswa, laporan).
