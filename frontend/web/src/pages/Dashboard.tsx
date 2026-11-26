@@ -19,9 +19,9 @@ function getLevelShortCode(level: TingkatKesulitan): string {
 
 export default function Dashboard({ daftarSoal }: DashboardProps) {
   const soalTerbaru = daftarSoal.slice(0, 4);
-  const jumlahMudah = daftarSoal.filter((s) => s.tingkatKesulitan === 'Mudah').length;
-  const jumlahSedang = daftarSoal.filter((s) => s.tingkatKesulitan === 'Sedang').length;
-  const jumlahSulit = daftarSoal.filter((s) => s.tingkatKesulitan === 'Sulit').length;
+  const jumlahMudah = daftarSoal.filter((s) => s.tingkat === 'Mudah').length;
+  const jumlahSedang = daftarSoal.filter((s) => s.tingkat === 'Sedang').length;
+  const jumlahSulit = daftarSoal.filter((s) => s.tingkat === 'Sulit').length;
 
   const stats = [
     {
@@ -219,15 +219,15 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
                 {soalTerbaru.map((soal) => (
                   <div key={soal.id} className="latest-soal-item">
                     <div className="latest-soal-left">
-                      <div className={`level-square ${getLevelBadgeClass(soal.tingkatKesulitan)}`}>
-                        {getLevelShortCode(soal.tingkatKesulitan)}
+                      <div className={`level-square ${getLevelBadgeClass(soal.tingkat)}`}>
+                        {getLevelShortCode(soal.tingkat)}
                       </div>
                       <div className="latest-soal-text">
                         <div className="latest-soal-question" title={soal.pertanyaan}>
                           {soal.pertanyaan}
                         </div>
                         <div className="latest-soal-meta">
-                          {soal.materi} · Kunci {soal.kunciJawaban} · {soal.tingkatKesulitan}
+                          {soal.materi} · Kunci {soal.kunciJawaban} · {soal.tingkat}
                         </div>
                       </div>
                     </div>

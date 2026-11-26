@@ -3,18 +3,28 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import PlaceholderPage from './components/PlaceholderPage';
 import { Soal, soalContoh } from './data/soal';
+import { bacaSoal, hapusSoal } from './lib/storage';
 import Dashboard from './pages/Dashboard';
+import SoalForm from './pages/SoalForm';
 import SoalList from './pages/SoalList';
 
 export default function App() {
-  const [daftarSoal, setDaftarSoal] = useState<Soal[]>(soalContoh);
+  const [daftarSoal, setDaftarSoal] = useState<Soal[]>(() => [
+    ...soalContoh,
+    ...bacaSoal(),
+  ]);
+
+  const handleTambahSoal = (soal: Soal) => {
+    setDaftarSoal((prev) => [...prev, soal]);
+  };
 
   const handleHapusSoal = (id: string) => {
+    hapusSoal(id);
     setDaftarSoal((prev) => prev.filter((soal) => soal.id !== id));
   };
 
   const handleResetSoal = () => {
-    setDaftarSoal(soalContoh);
+    setDaftarSoal([...soalContoh, ...bacaSoal()]);
   };
 
   return (
@@ -31,6 +41,10 @@ export default function App() {
                 onResetSoal={handleResetSoal}
               />
             }
+          />
+          <Route
+            path="/bank-soal/tambah"
+            element={<SoalForm onTambah={handleTambahSoal} />}
           />
           <Route
             path="/sesi-game"

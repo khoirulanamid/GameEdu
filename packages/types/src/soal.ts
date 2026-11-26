@@ -1,8 +1,13 @@
+export type TingkatKesulitan = 'Mudah' | 'Sedang' | 'Sulit';
+export type KunciJawaban = 'A' | 'B' | 'C' | 'D';
+
 export interface Soal {
   id: string;
   pertanyaan: string;
-  pilihan: string[];
-  jawabanBenar: string;
+  pilihan: { A: string; B: string; C: string; D: string };
+  kunciJawaban: KunciJawaban;
   kategori: string;
-  tingkat: string;
+  materi: string;
+  tingkat: TingkatKesulitan;
+  durasiDetik?: number;
 }

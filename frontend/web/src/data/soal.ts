@@ -1,20 +1,6 @@
-export type TingkatKesulitan = 'Mudah' | 'Sedang' | 'Sulit';
-export type KunciJawaban = 'A' | 'B' | 'C' | 'D';
+import type { Soal } from '@gameedu/types';
 
-export interface Soal {
-  id: string;
-  pertanyaan: string;
-  pilihan: {
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-  };
-  kunciJawaban: KunciJawaban;
-  materi: string;
-  tingkatKesulitan: TingkatKesulitan;
-  durasiDetik: number;
-}
+export type { Soal, TingkatKesulitan, KunciJawaban } from '@gameedu/types';
 
 export const soalContoh: Soal[] = [
   {
@@ -28,7 +14,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Persegi',
-    tingkatKesulitan: 'Mudah',
+    kategori: 'Matematika',
+    tingkat: 'Mudah',
     durasiDetik: 20,
   },
   {
@@ -42,7 +29,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'C',
     materi: 'Persegi Panjang',
-    tingkatKesulitan: 'Mudah',
+    kategori: 'Matematika',
+    tingkat: 'Mudah',
     durasiDetik: 20,
   },
   {
@@ -56,7 +44,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Segitiga',
-    tingkatKesulitan: 'Mudah',
+    kategori: 'Matematika',
+    tingkat: 'Mudah',
     durasiDetik: 25,
   },
   {
@@ -70,7 +59,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'C',
     materi: 'Persegi Panjang',
-    tingkatKesulitan: 'Sedang',
+    kategori: 'Matematika',
+    tingkat: 'Sedang',
     durasiDetik: 30,
   },
   {
@@ -84,7 +74,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'A',
     materi: 'Trapesium',
-    tingkatKesulitan: 'Sedang',
+    kategori: 'Matematika',
+    tingkat: 'Sedang',
     durasiDetik: 25,
   },
   {
@@ -98,7 +89,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Belah Ketupat',
-    tingkatKesulitan: 'Sedang',
+    kategori: 'Matematika',
+    tingkat: 'Sedang',
     durasiDetik: 35,
   },
   {
@@ -112,7 +104,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Lingkaran',
-    tingkatKesulitan: 'Sulit',
+    kategori: 'Matematika',
+    tingkat: 'Sulit',
     durasiDetik: 40,
   },
   {
@@ -126,7 +119,8 @@ export const soalContoh: Soal[] = [
     },
     kunciJawaban: 'B',
     materi: 'Trapesium',
-    tingkatKesulitan: 'Sulit',
+    kategori: 'Matematika',
+    tingkat: 'Sulit',
     durasiDetik: 45,
   },
 ];

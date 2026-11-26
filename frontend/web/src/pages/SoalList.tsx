@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Soal, TingkatKesulitan } from '../data/soal';
 
 interface SoalListProps {
@@ -27,7 +28,7 @@ export default function SoalList({
     const query = kataKunci.trim().toLowerCase();
     return daftarSoal.filter((soal) => {
       const cocokTingkat =
-        filterTingkat === 'Semua' || soal.tingkatKesulitan === filterTingkat;
+        filterTingkat === 'Semua' || soal.tingkat === filterTingkat;
       const cocokCari =
         !query ||
         soal.pertanyaan.toLowerCase().includes(query) ||
@@ -52,6 +53,9 @@ export default function SoalList({
           <span className="badge badge-kunci" style={{ padding: '8px 14px', fontSize: '0.84rem' }}>
             {daftarSoal.length} soal tersimpan
           </span>
+          <Link to="/bank-soal/tambah" className="btn-primary">
+            <span>+ Tambah Soal</span>
+          </Link>
         </div>
       </section>
 
@@ -148,8 +152,8 @@ export default function SoalList({
                       <span className="badge badge-materi">{soal.materi}</span>
                     </td>
                     <td>
-                      <span className={`badge ${getLevelBadgeClass(soal.tingkatKesulitan)}`}>
-                        {soal.tingkatKesulitan}
+                      <span className={`badge ${getLevelBadgeClass(soal.tingkat)}`}>
+                        {soal.tingkat}
                       </span>
                     </td>
                     <td>

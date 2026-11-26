@@ -1,17 +1,19 @@
-
 import { useState } from "react";
-import type { Soal } from "@gameedu/types";
+import type { Soal, KunciJawaban, TingkatKesulitan } from "@gameedu/types";
 
 interface TambahSoalProps {
   onSimpan?: (soal: Soal) => void;
 }
 
+const HURUF_OPSI: KunciJawaban[] = ["A", "B", "C", "D"];
+
 export default function TambahSoal({ onSimpan }: TambahSoalProps) {
   const [pertanyaan, setPertanyaan] = useState("");
   const [pilihan, setPilihan] = useState(["", "", "", ""]);
-  const [jawabanBenar, setJawabanBenar] = useState("");
+  const [jawabanBenar, setJawabanBenar] = useState<KunciJawaban | "">("");
   const [kategori, setKategori] = useState("");
-  const [tingkat, setTingkat] = useState("Mudah");
+  const [materi, setMateri] = useState("");
+  const [tingkat, setTingkat] = useState<TingkatKesulitan>("Mudah");
 
   const handlePilihan = (index: number, value: string) => {
     setPilihan((prev) =>
@@ -23,7 +25,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     e.preventDefault();
 
     if (!pertanyaan.trim() || pilihan.some((p) => !p.trim()) ||
-        !jawabanBenar || !kategori.trim()) {
+        !jawabanBenar || !kategori.trim() || !materi.trim()) {
       alert("Semua kolom harus diisi!");
       return;
     }
@@ -31,10 +33,12 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     const soalBaru: Soal = {
       id: Date.now().toString(),
       pertanyaan,
-      pilihan,
-      jawabanBenar,
+      pilihan: { A: pilihan[0], B: pilihan[1], C: pilihan[2], D: pilihan[3] },
+      kunciJawaban: jawabanBenar,
       kategori,
+      materi,
       tingkat,
+      durasiDetik: 30,
     };
 
     onSimpan?.(soalBaru);
@@ -45,6 +49,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     setPilihan(["", "", "", ""]);
     setJawabanBenar("");
     setKategori("");
+    setMateri("");
     setTingkat("Mudah");
   };
 
@@ -64,11 +69,11 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
 
         {pilihan.map((item, index) => (
           <div key={index}>
-            <label>Pilihan {index + 1}</label>
+            <label>Pilihan {HURUF_OPSI[index]}</label>
             <input
               value={item}
               onChange={(e) => handlePilihan(index, e.target.value)}
-              placeholder={`Jawaban ${index + 1}`}
+              placeholder={`Jawaban ${HURUF_OPSI[index]}`}
             />
           </div>
         ))}
@@ -76,11 +81,13 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
         <label>Jawaban Benar</label>
         <select
           value={jawabanBenar}
-          onChange={(e) => setJawabanBenar(e.target.value)}
+          onChange={(e) => setJawabanBenar(e.target.value as KunciJawaban | "")}
         >
           <option value="">Pilih jawaban benar</option>
-          {pilihan.filter((p) => p.trim()).map((p, i) => (
-            <option key={i} value={p}>{p}</option>
+          {HURUF_OPSI.map((huruf, i) => (
+            <option key={huruf} value={huruf} disabled={!pilihan[i].trim()}>
+              {huruf}. {pilihan[i]}
+            </option>
           ))}
         </select>
 
@@ -91,10 +98,17 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
           placeholder="Contoh: Matematika"
         />
 
+        <label>Materi</label>
+        <input
+          value={materi}
+          onChange={(e) => setMateri(e.target.value)}
+          placeholder="Contoh: Persegi"
+        />
+
         <label>Tingkat Kesulitan</label>
         <select
           value={tingkat}
-          onChange={(e) => setTingkat(e.target.value)}
+          onChange={(e) => setTingkat(e.target.value as TingkatKesulitan)}
         >
           <option value="Mudah">Mudah</option>
           <option value="Sedang">Sedang</option>
