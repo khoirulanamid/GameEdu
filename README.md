@@ -87,7 +87,7 @@ tersebut dipakai sebagai isi contoh pada template.
 | Build tool frontend | Vite 5 | Cepat dan merupakan cara standar membuat proyek React baru |
 | Struktur proyek | Monorepo Opsi B: `frontend/` + `backend/` + `sql/` | Frontend, backend, dan SQL masing-masing punya folder sendiri |
 | Backend | Node + Express + TypeScript | Bahasa sama dengan frontend, satu `npm install` untuk semua |
-| Database | PostgreSQL 16, raw SQL migration | SQL dapat dibaca langsung pada file `.sql` di folder `sql/` |
+| Database | MySQL 8.0, raw SQL migration | SQL dapat dibaca langsung pada file `.sql` di folder `sql/` |
 | Routing frontend | react-router-dom 6 | Berpindah halaman Dashboard, Soal, Kelas, Sesi, dan Laporan |
 | Data Milestone 1 | LocalStorage + data contoh (frontend); kerangka backend dan SQL | Belum ada backend penuh; tampilan guru tetap dapat didemokan |
 
@@ -108,7 +108,7 @@ tersebut dipakai sebagai isi contoh pada template.
 ```text
 GameEdu/
 ├── package.json                 # workspaces: frontend/* + backend + packages/*
-├── docker-compose.yml           # database Postgres lokal (pengembangan saja)
+├── docker-compose.yml           # database MySQL + phpMyAdmin lokal (pengembangan saja)
 ├── docs/                        # logo.png, logo-icon.png, panduan-anggota*.md, screenshot
 ├── .gitignore  .nvmrc (Node 20)
 ├── frontend/                    # SEMUA frontend (React + Vite)
@@ -132,10 +132,10 @@ GameEdu/
 │       ├── controllers/         # pengendali permintaan API
 │       ├── services/            # logika dan validasi
 │       ├── repositories/        # satu-satunya lapisan yang berisi SQL
-│       ├── config/              # env dan koneksi database (pg Pool)
+│       ├── config/              # env dan koneksi database (mysql2 Pool)
 │       ├── middlewares/         # penanganan error
 │       └── scripts/             # migrate dan seed
-├── sql/                         # SQL SAJA (raw SQL, PostgreSQL)
+├── sql/                         # SQL SAJA (raw SQL, MySQL)
 │   ├── migrations/              # 001_create_soal.sql, 002_create_kelas_siswa.sql,
 │   │                            # 003_create_sesi_jawaban.sql
 │   ├── seeds/                   # 001_seed_soal.sql (3 soal contoh)

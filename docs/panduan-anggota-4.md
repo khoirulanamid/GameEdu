@@ -61,13 +61,13 @@ backend/src/ semuanya, sql/migrations/ dan sql/seeds/, frontend/smartboard/, fro
 7. Buat komponen Button, Card, dan Badge di packages/ui/.
 8. Uji backend di laptopmu — perintah ini harus berhasil:
    ```
-   docker compose up -d db
+   docker compose up -d
    npm run db:migrate
    npm run db:seed
    npm run dev:backend
    npm run build:backend
    ```
-9. Periksa di terminal atau browser: GET http://localhost:3001/api/health harus menjawab `{"status":"ok"}`. Jika Docker belum terpasang di laptopmu, kabari di grup — migrasi dan seed bisa diuji nanti bersama Anggota 1, tetapi kode backend dan SQL tetap harus selesai dan di-push.
+9. Periksa di terminal atau browser: GET http://localhost:3001/api/health harus menjawab `{"status":"ok"}`. Buka juga phpMyAdmin di http://localhost:8080 (pengguna gameedu, sandi gameedu_dev) untuk melihat tabel dan isi database. Jika Docker belum terpasang di laptopmu, kabari di grup — migrasi dan seed bisa diuji nanti bersama Anggota 1, tetapi kode backend dan SQL tetap harus selesai dan di-push.
 10. Simpan dan kirim pekerjaanmu:
     ```
     git add .

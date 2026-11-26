@@ -206,13 +206,13 @@ Contoh pesan commit yang benar: `feat: buat halaman Dashboard dan Daftar Soal`. 
 8. Buat komponen Button, Card, dan Badge di packages/ui/.
 9. Uji backend di laptopmu — perintah ini harus berhasil:
    ```
-   docker compose up -d db
+   docker compose up -d
    npm run db:migrate
    npm run db:seed
    npm run dev:backend
    npm run build:backend
    ```
-10. Periksa di terminal atau browser: GET http://localhost:3001/api/health harus menjawab `{"status":"ok"}`. Jika Docker belum terpasang di laptopmu, kabari di grup — migrasi dan seed bisa diuji nanti bersama Anggota 1, tetapi kode backend dan SQL tetap harus selesai dan di-push.
+10. Periksa di terminal atau browser: GET http://localhost:3001/api/health harus menjawab `{"status":"ok"}`. Buka juga phpMyAdmin di http://localhost:8080 (pengguna gameedu, sandi gameedu_dev) untuk melihat tabel dan isi database. Jika Docker belum terpasang di laptopmu, kabari di grup — migrasi dan seed bisa diuji nanti bersama Anggota 1, tetapi kode backend dan SQL tetap harus selesai dan di-push.
 11. Simpan dan kirim pekerjaanmu:
     ```
     git add .

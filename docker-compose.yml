@@ -2,15 +2,26 @@
 # Jangan pakai password ini di server/produksi.
 services:
   db:
-    image: postgres:16-alpine
+    image: mysql:8.0
     container_name: gameedu-db
     environment:
-      POSTGRES_USER: gameedu
-      POSTGRES_PASSWORD: gameedu_dev
-      POSTGRES_DB: gameedu
+      MYSQL_ROOT_PASSWORD: gameedu_dev
+      MYSQL_DATABASE: gameedu
+      MYSQL_USER: gameedu
+      MYSQL_PASSWORD: gameedu_dev
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: gameedu-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
 volumes:
-  pgdata:
+  dbdata:
