@@ -21,7 +21,7 @@
 | No | Nama | NIM | Peran |
 |----|------|-----|-------|
 | 1 | Khoirul Anam | 2455202037 | Anggota |
-| 2 | Daryanto | [Isi NIM] | Anggota |
+| 2 | Daryanto | 2455202099 | Anggota |
 | 3 | Dinda Puspita Ayu | 2455202087 | Anggota |
 | 4 | Yayah Tri Marpuah | 2455202077 | Anggota |
 
