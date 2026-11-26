@@ -1,12 +1,15 @@
 import { ReactNode, useState } from 'react';
 import Sidebar from './Sidebar';
+import type { Soal } from '../data/soal';
 
 interface LayoutProps {
   children: ReactNode;
+  daftarSoal?: Soal[];
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, daftarSoal = [] }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const jumlahMapel = new Set(daftarSoal.map((soal) => soal.mapel)).size;
 
   return (
     <div className="app-shell">
@@ -37,7 +40,12 @@ export default function Layout({ children }: LayoutProps) {
         </button>
       </header>
 
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        jumlahSoal={daftarSoal.length}
+        jumlahMapel={jumlahMapel}
+      />
 
       <main className="main-content">
         <div className="page-container">{children}</div>

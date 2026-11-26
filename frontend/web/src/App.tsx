@@ -71,7 +71,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ToastHost />
-      <Layout>
+      <Layout daftarSoal={daftarSoal}>
         <Routes>
           <Route path="/" element={<Dashboard daftarSoal={daftarSoal} />} />
           <Route

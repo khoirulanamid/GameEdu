@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  jumlahSoal: number;
+  jumlahMapel: number;
 }
 
 interface MenuItem {
@@ -74,7 +76,12 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+export default function Sidebar({
+  isOpen,
+  onClose,
+  jumlahSoal,
+  jumlahMapel,
+}: SidebarProps) {
   return (
     <>
       <div
@@ -117,9 +124,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         <div className="sidebar-footer">
           <div className="teacher-card">
-            <div className="teacher-card-badge">Matematika • Aktif</div>
+            <div className="teacher-card-badge">
+              {jumlahSoal} soal • {jumlahMapel} mapel
+            </div>
             <div className="teacher-card-name">Ruang Guru</div>
-            <div className="teacher-card-meta">Materi Bangun Datar</div>
+            <div className="teacher-card-meta">
+              Bank soal semua mata pelajaran
+            </div>
           </div>
         </div>
       </aside>
