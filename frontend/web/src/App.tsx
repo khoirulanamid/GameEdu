@@ -10,7 +10,7 @@ import Layout from './components/Layout';
 import PlaceholderPage from './components/PlaceholderPage';
 import Toast from './components/Toast';
 import { Soal, soalContoh } from './data/soal';
-import { bacaSoal, hapusSoal } from './lib/storage';
+import { bacaSemuaSoal, simpanSemuaSoal } from './lib/storage';
 import Dashboard from './pages/Dashboard';
 import SoalForm from './pages/SoalForm';
 import SoalList from './pages/SoalList';
@@ -33,22 +33,39 @@ function ToastHost() {
 }
 
 export default function App() {
-  const [daftarSoal, setDaftarSoal] = useState<Soal[]>(() => [
-    ...soalContoh,
-    ...bacaSoal(),
-  ]);
+  const [daftarSoal, setDaftarSoal] = useState<Soal[]>(() =>
+    bacaSemuaSoal(soalContoh),
+  );
 
   const handleTambahSoal = (soal: Soal) => {
-    setDaftarSoal((prev) => [...prev, soal]);
+    setDaftarSoal((prev) => {
+      const berikutnya = [...prev, soal];
+      simpanSemuaSoal(berikutnya);
+      return berikutnya;
+    });
+  };
+
+  const handleEditSoal = (soal: Soal) => {
+    setDaftarSoal((prev) => {
+      const berikutnya = prev.map((item) =>
+        item.id === soal.id ? soal : item,
+      );
+      simpanSemuaSoal(berikutnya);
+      return berikutnya;
+    });
   };
 
   const handleHapusSoal = (id: string) => {
-    hapusSoal(id);
-    setDaftarSoal((prev) => prev.filter((soal) => soal.id !== id));
+    setDaftarSoal((prev) => {
+      const berikutnya = prev.filter((soal) => soal.id !== id);
+      simpanSemuaSoal(berikutnya);
+      return berikutnya;
+    });
   };
 
   const handleResetSoal = () => {
-    setDaftarSoal([...soalContoh, ...bacaSoal()]);
+    setDaftarSoal(soalContoh);
+    simpanSemuaSoal(soalContoh);
   };
 
   return (
@@ -69,7 +86,23 @@ export default function App() {
           />
           <Route
             path="/bank-soal/tambah"
-            element={<SoalForm onTambah={handleTambahSoal} />}
+            element={
+              <SoalForm
+                daftarSoal={daftarSoal}
+                onTambah={handleTambahSoal}
+                onEdit={handleEditSoal}
+              />
+            }
+          />
+          <Route
+            path="/bank-soal/edit/:id"
+            element={
+              <SoalForm
+                daftarSoal={daftarSoal}
+                onTambah={handleTambahSoal}
+                onEdit={handleEditSoal}
+              />
+            }
           />
           <Route
             path="/sesi-game"

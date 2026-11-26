@@ -8,6 +8,7 @@ import type {
 } from "@gameedu/types";
 
 interface TambahSoalProps {
+  soalAwal?: Soal;
   onSimpan?: (soal: Soal) => void;
 }
 
@@ -24,18 +25,33 @@ const LEVEL_BLOOM: { kode: LevelBloom; label: string }[] = [
   { kode: "C6", label: "C6 · Mencipta" },
 ];
 
-export default function TambahSoal({ onSimpan }: TambahSoalProps) {
-  const [pertanyaan, setPertanyaan] = useState("");
-  const [pilihan, setPilihan] = useState(["", "", "", ""]);
-  const [jawabanBenar, setJawabanBenar] = useState<KunciJawaban | "">("");
-  const [mapel, setMapel] = useState("");
-  const [bab, setBab] = useState("");
-  const [materi, setMateri] = useState("");
-  const [kelas, setKelas] = useState("VII");
-  const [tingkat, setTingkat] = useState<TingkatKesulitan>("Mudah");
-  const [levelBloom, setLevelBloom] = useState<LevelBloom>("C3");
-  const [durasi, setDurasi] = useState("30");
-  const [pembahasan, setPembahasan] = useState("");
+export default function TambahSoal({ soalAwal, onSimpan }: TambahSoalProps) {
+  const [pertanyaan, setPertanyaan] = useState(soalAwal?.pertanyaan ?? "");
+  const [pilihan, setPilihan] = useState(
+    soalAwal
+      ? [
+          soalAwal.pilihan.A,
+          soalAwal.pilihan.B,
+          soalAwal.pilihan.C,
+          soalAwal.pilihan.D,
+        ]
+      : ["", "", "", ""],
+  );
+  const [jawabanBenar, setJawabanBenar] = useState<KunciJawaban | "">(
+    soalAwal?.kunciJawaban ?? "",
+  );
+  const [mapel, setMapel] = useState(soalAwal?.mapel ?? "");
+  const [bab, setBab] = useState(soalAwal?.bab ?? "");
+  const [materi, setMateri] = useState(soalAwal?.materi ?? "");
+  const [kelas, setKelas] = useState(soalAwal?.kelas ?? "VII");
+  const [tingkat, setTingkat] = useState<TingkatKesulitan>(
+    soalAwal?.tingkat ?? "Mudah",
+  );
+  const [levelBloom, setLevelBloom] = useState<LevelBloom>(
+    soalAwal?.levelBloom ?? "C3",
+  );
+  const [durasi, setDurasi] = useState(String(soalAwal?.durasiDetik ?? 30));
+  const [pembahasan, setPembahasan] = useState(soalAwal?.pembahasan ?? "");
   const [error, setError] = useState("");
 
   const handlePilihan = (index: number, value: string) => {
@@ -63,7 +79,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     }
 
     const soalBaru: Soal = {
-      id: Date.now().toString(),
+      id: soalAwal?.id ?? Date.now().toString(),
       pertanyaan,
       pilihan: { A: pilihan[0], B: pilihan[1], C: pilihan[2], D: pilihan[3] },
       kunciJawaban: jawabanBenar,
@@ -78,6 +94,9 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     };
 
     onSimpan?.(soalBaru);
+
+    // Mode edit langsung pindah halaman; tidak perlu mengosongkan form.
+    if (soalAwal) return;
 
     setError("");
     setPertanyaan("");
@@ -97,9 +116,13 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
     <div>
       <section className="card page-header-card">
         <div>
-          <h1 className="page-title">Tambah Soal</h1>
+          <h1 className="page-title">
+            {soalAwal ? "Edit Soal" : "Tambah Soal"}
+          </h1>
           <p className="page-subtitle">
-            Buat soal pilihan ganda baru untuk bank soal — semua mata pelajaran.
+            {soalAwal
+              ? "Ubah isi soal, lalu simpan perubahannya."
+              : "Buat soal pilihan ganda baru untuk bank soal — semua mata pelajaran."}
           </p>
         </div>
         <Link to="/bank-soal" className="btn-secondary">
@@ -307,7 +330,7 @@ export default function TambahSoal({ onSimpan }: TambahSoalProps) {
             Batal
           </Link>
           <button type="submit" className="btn-primary">
-            Simpan Soal
+            {soalAwal ? "Simpan Perubahan" : "Simpan Soal"}
           </button>
         </div>
       </form>

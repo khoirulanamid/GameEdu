@@ -1,6 +1,7 @@
 import type { Soal } from '@gameedu/types';
 
-const KUNCI = 'gameedu-soal';
+const KUNCI_TAMBAHAN = 'gameedu-soal';
+const KUNCI_SEMUA = 'gameedu-semua-soal';
 
 // Soal lama (sebelum 26 Nov malam) memakai field `kategori`, bukan `mapel`,
 // dan belum punya kelas/levelBloom. Normalisasi di sini supaya soal yang
@@ -8,30 +9,44 @@ const KUNCI = 'gameedu-soal';
 // tampil dengan benar setelah tipe Soal diperbarui.
 type SoalLama = Soal & { kategori?: string };
 
-export function bacaSoal(): Soal[] {
+function normalisasi(semua: SoalLama[]): Soal[] {
+  return semua.map((s) => ({
+    ...s,
+    mapel: s.mapel ?? s.kategori ?? '',
+    kelas: s.kelas ?? 'VII',
+    levelBloom: s.levelBloom ?? 'C3',
+    durasiDetik: s.durasiDetik ?? 30,
+  }));
+}
+
+function bacaSoalTambahan(): Soal[] {
   try {
-    const mentah = JSON.parse(
-      localStorage.getItem(KUNCI) ?? '[]',
+    return JSON.parse(
+      localStorage.getItem(KUNCI_TAMBAHAN) ?? '[]',
     ) as SoalLama[];
-    return mentah.map((s) => ({
-      ...s,
-      mapel: s.mapel ?? s.kategori ?? '',
-      kelas: s.kelas ?? 'VII',
-      levelBloom: s.levelBloom ?? 'C3',
-      durasiDetik: s.durasiDetik ?? 30,
-    }));
   } catch {
     return [];
   }
 }
 
-export function simpanSoal(soal: Soal): void {
-  const semua = bacaSoal();
-  semua.push(soal);
-  localStorage.setItem(KUNCI, JSON.stringify(semua));
+// Daftar penuh: soal contoh + soal tambahan + hasil edit. Pertama kali
+// dipanggil, daftar dimigrasi dari soal contoh + kunci lama, lalu disimpan
+// ke kunci baru — jadi edit dan hapus soal contoh pun tersimpan dan tidak
+// hilang saat refresh.
+export function bacaSemuaSoal(contoh: Soal[]): Soal[] {
+  try {
+    const tersimpan = JSON.parse(
+      localStorage.getItem(KUNCI_SEMUA) ?? 'null',
+    ) as SoalLama[] | null;
+    if (tersimpan) return normalisasi(tersimpan);
+  } catch {
+    // abaikan isi rusak, lanjut ke migrasi di bawah
+  }
+  const gabungan = normalisasi([...contoh, ...bacaSoalTambahan()]);
+  localStorage.setItem(KUNCI_SEMUA, JSON.stringify(gabungan));
+  return gabungan;
 }
 
-export function hapusSoal(id: string): void {
-  const semua = bacaSoal().filter((soal) => soal.id !== id);
-  localStorage.setItem(KUNCI, JSON.stringify(semua));
+export function simpanSemuaSoal(semua: Soal[]): void {
+  localStorage.setItem(KUNCI_SEMUA, JSON.stringify(semua));
 }

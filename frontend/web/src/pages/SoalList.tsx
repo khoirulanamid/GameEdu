@@ -169,7 +169,7 @@ export default function SoalList({
                   <th style={{ width: '150px' }}>Materi</th>
                   <th style={{ width: '140px' }}>Tingkat Kesulitan</th>
                   <th style={{ width: '190px' }}>Kunci Jawaban</th>
-                  <th style={{ width: '110px' }}>Aksi</th>
+                  <th style={{ width: '150px' }}>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -218,14 +218,23 @@ export default function SoalList({
                       </span>
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        className="btn-delete"
-                        onClick={() => onHapusSoal(soal.id)}
-                        aria-label={`Hapus soal nomor ${index + 1}`}
-                      >
-                        Hapus
-                      </button>
+                      <div className="aksi-buttons">
+                        <Link
+                          to={`/bank-soal/edit/${soal.id}`}
+                          className="btn-edit"
+                          aria-label={`Edit soal nomor ${index + 1}`}
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          type="button"
+                          className="btn-delete"
+                          onClick={() => onHapusSoal(soal.id)}
+                          aria-label={`Hapus soal nomor ${index + 1}`}
+                        >
+                          Hapus
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
