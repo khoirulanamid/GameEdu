@@ -292,7 +292,7 @@ npm run build:backend
 - [x] `npm run build:web` dan `npm run build:backend` berhasil.
 - [x] `GET /api/health` menjawab `{"status":"ok"}`.
 - [x] README lengkap dan `node_modules/`, `dist/`, `backend/.env` tidak ter-push.
-- [ ] Link repository sudah dikumpulkan di Google Classroom.
+- [x] Link repository sudah dikumpulkan di Google Classroom.
 
 ---
 
