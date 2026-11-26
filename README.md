@@ -109,7 +109,7 @@ tersebut dipakai sebagai isi contoh pada template.
 GameEdu/
 ├── package.json                 # workspaces: frontend/* + backend + packages/*
 ├── docker-compose.yml           # database Postgres lokal (pengembangan saja)
-├── docs/                        # logo.png, logo-icon.png, dan screenshot
+├── docs/                        # logo.png, logo-icon.png, panduan-anggota*.md, screenshot
 ├── .gitignore  .nvmrc (Node 20)
 ├── frontend/                    # SEMUA frontend (React + Vite)
 │   ├── web/                     # Dashboard Guru — FOKUS Milestone 1
