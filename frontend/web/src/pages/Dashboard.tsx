@@ -19,6 +19,7 @@ function getLevelShortCode(level: TingkatKesulitan): string {
 
 export default function Dashboard({ daftarSoal }: DashboardProps) {
   const soalTerbaru = daftarSoal.slice(0, 4);
+  const jumlahMapel = new Set(daftarSoal.map((s) => s.mapel)).size;
   const jumlahMudah = daftarSoal.filter((s) => s.tingkat === 'Mudah').length;
   const jumlahSedang = daftarSoal.filter((s) => s.tingkat === 'Sedang').length;
   const jumlahSulit = daftarSoal.filter((s) => s.tingkat === 'Sulit').length;
@@ -27,7 +28,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
     {
       label: 'Total Bank Soal',
       value: `${daftarSoal.length} soal`,
-      meta: 'Materi Bangun Datar',
+      meta: `${jumlahMapel} mata pelajaran`,
       footer: `${daftarSoal.length} siap dipakai`,
       progress: Math.min(100, Math.round((daftarSoal.length / 10) * 100)),
       iconBg: 'var(--peach-bg)',
@@ -105,7 +106,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
           <div className="hero-copy">
             <h1 className="hero-title">Ubah materi jadi arena kelas</h1>
             <p className="hero-desc">
-              Kelola bank soal bangun datar, siapkan sesi kuis interaktif di smartboard, dan pantau kesiapan siswa dari satu tempat.
+              Kelola bank soal semua mata pelajaran, siapkan sesi kuis interaktif di smartboard, dan pantau kesiapan siswa dari satu tempat.
             </p>
             <div className="hero-actions">
               <Link to="/bank-soal" className="btn-primary">
@@ -174,7 +175,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
               <div>
                 <h2 className="mode-title">Speed Clash</h2>
                 <p className="mode-desc">
-                  Adu cepat menjawab benar. Cocok untuk pemanasan materi bangun datar.
+                  Adu cepat menjawab benar. Cocok untuk pemanasan di awal kelas.
                 </p>
                 <Link to="/sesi-game" className="btn-mint">
                   Pakai Mode
@@ -198,7 +199,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
 
           <article className="card latest-soal-card">
             <div className="section-header">
-              <h2 className="section-title">Soal terbaru · Bangun Datar</h2>
+              <h2 className="section-title">Soal terbaru</h2>
               <Link to="/bank-soal" className="section-link">
                 Lihat semua ({daftarSoal.length})
               </Link>
@@ -265,7 +266,7 @@ export default function Dashboard({ daftarSoal }: DashboardProps) {
               </div>
               <div>
                 <div className="rail-item-title">Bank soal siap</div>
-                <div className="rail-item-desc">{daftarSoal.length} soal Bangun Datar aktif</div>
+                <div className="rail-item-desc">{daftarSoal.length} soal dari {jumlahMapel} mapel aktif</div>
               </div>
             </div>
 
