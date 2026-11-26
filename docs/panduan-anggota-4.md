@@ -68,6 +68,8 @@ backend/src/ semuanya, sql/migrations/ dan sql/seeds/, frontend/smartboard/, fro
    npm run build:backend
    ```
 9. Periksa di terminal atau browser: GET http://localhost:3001/api/health harus menjawab `{"status":"ok"}`. Buka juga phpMyAdmin di http://localhost:8080 (pengguna gameedu, sandi gameedu_dev) untuk melihat tabel dan isi database. Jika Docker belum terpasang di laptopmu, kabari di grup — migrasi dan seed bisa diuji nanti bersama Anggota 1, tetapi kode backend dan SQL tetap harus selesai dan di-push.
+
+> **Tanpa Docker (Laragon/XAMPP):** kalau di laptopmu sudah ada Laragon atau XAMPP, lewati `docker compose up -d`. Buat database bernama `gameedu` di phpMyAdmin Laragon/XAMPP, lalu isi `backend/.env` dengan kredensialmu sendiri (Laragon/XAMPP: pengguna `root` tanpa sandi, jadi `DATABASE_URL=mysql://root@localhost:3306/gameedu`). Setelah itu jalankan `npm run db:migrate` dan `npm run db:seed` seperti biasa. Laragon/XAMPP biasanya memakai MariaDB — tetap bisa dipakai, driver mysql2 cocok. File `backend/.env` tidak ikut ter-commit (sudah ada di `.gitignore`), jadi tiap laptop boleh memakai kredensial databasenya sendiri.
 10. Simpan dan kirim pekerjaanmu:
     ```
     git add .

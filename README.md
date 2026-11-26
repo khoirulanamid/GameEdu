@@ -21,7 +21,7 @@
 | No | Nama | NIM | Peran |
 |----|------|-----|-------|
 | 1 | Khoirul Anam | 2455202037 | Anggota |
-| 2 | [Isi nama] | [Isi NIM] | Anggota |
+| 2 | Daryanto | [Isi NIM] | Anggota |
 | 3 | [Isi nama] | [Isi NIM] | Anggota |
 | 4 | [Isi nama] | [Isi NIM] | Anggota |
 
@@ -156,7 +156,7 @@ kosong tersebut. File itu dihapus saat folder sudah berisi file sungguhan.
 | No | Peran | Anggota | Tugas |
 |----|-------|---------|-------|
 | 1 | Repository dan Integrasi | Khoirul Anam | Membuat repository publik, mengundang collaborator, menggabungkan Pull Request, menguji alur guru dan backend, merapikan repository, mengumpulkan link di Classroom |
-| 2 | Frontend Web Guru — Dashboard dan Soal | [Isi nama] | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel dan hapus); memastikan 3 soal contoh tampil |
+| 2 | Frontend Web Guru — Dashboard dan Soal | Daryanto | Halaman Dashboard (statistik dan mulai cepat) dan Daftar Soal (tabel dan hapus); memastikan 3 soal contoh tampil |
 | 3 | Frontend Web Guru — Tambah Soal dan Data | [Isi nama] | Formulir Tambah Soal (pertanyaan, 4 pilihan, jawaban benar, kategori, tingkat), validasi, penyimpanan localStorage, dan tipe Soal |
 | 4 | Backend, SQL, Smartboard, dan Mobile | [Isi nama] | Backend (health dan soal, repository, migrate/seed), SQL (migrasi 001–003 dan seed), kerangka Smartboard dan Mobile, serta komponen `packages/ui/` |
 
